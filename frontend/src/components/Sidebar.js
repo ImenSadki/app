@@ -1,25 +1,33 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
-import '../styles/App.css'; // Assurez-vous que le CSS pour Sidebar est dans ce fichier
+import { IoHomeSharp } from "react-icons/io5";
+import '../styles/App.css';
+import { FaFileAlt } from "react-icons/fa";
 
 const Sidebar = ({ onLibraryClick }) => {
   const navigate = useNavigate();
-  const files = ['File1', 'File2', 'File3']; // Remplacez par vos noms de fichiers réels
+
+  const files = ['Fiche de connaissance de client', 'Formulaire d’ouvarture de compte ', 'File3'];
 
   const handleFileClick = (fileName) => {
-    navigate(`/form/${fileName}`); // Naviguer vers la page de formulaire
+ 
+    if (fileName === 'Formulaire d’ouvarture de compte ') {
+      navigate(`/form-ouverture-compte`); // Redirige vers un formulaire spécifique pour ce fichier
+    } else {
+      navigate(`/form/${fileName}`);
+    }
   };
 
   return (
     <div className="sidebar">
-      <h3 className="sidebar-title">Files</h3>
+      <h3 className="sidebar-title"><IoHomeSharp />Home</h3>
       <ul className="sidebar-list">
         {files.map((file, index) => (
+          
           <li key={index} className="sidebar-item">
-            <button
-              className="sidebar-button"
-              onClick={() => handleFileClick(file)}
-            >
+          
+            <button className="sidebar-button" onClick={() => handleFileClick(file)}   >
+            <FaFileAlt />
               {file}
             </button>
           </li>

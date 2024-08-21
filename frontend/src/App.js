@@ -5,6 +5,7 @@ import Register from './components/Register';
 import Home from './components/Home';
 import Library from './components/Library';
 import FormPage from './components/FormPage';
+import FormOuvertureCompte from './components/form-ouverture-compte';
 import './styles/App.css';
 
 const App = () => {
@@ -13,23 +14,12 @@ const App = () => {
   return (
     <Router>
       <Routes>
-        <Route
-          path="/login"
-          element={<Login setIsAuthenticated={setIsAuthenticated} />}
-        />
+        <Route path="/login" element={<Login setIsAuthenticated={setIsAuthenticated} />} />
         <Route path="/register" element={<Register />} />
-        <Route
-          path="/"
-          element={
-            isAuthenticated ? (
-              <Home />
-            ) : (
-              <Login setIsAuthenticated={setIsAuthenticated} />
-            )
-          }
-        />
+        <Route path="/" element={isAuthenticated ? <Home /> : <Login setIsAuthenticated={setIsAuthenticated} />} />
         <Route path="/library" element={<Library />} />
         <Route path="/form/:fileName" element={<FormPage />} />
+        <Route path="/form-ouverture-compte" element={<FormOuvertureCompte />} /> {/* Nouvelle route */}
       </Routes>
     </Router>
   );

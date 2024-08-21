@@ -2,7 +2,6 @@ import React, { useState, useEffect } from 'react';
 import { RiLogoutCircleRLine } from "react-icons/ri";
 import Sidebar from './Sidebar';
 import Dashboard from './Dashboard'; // Importation du Dashboard
-//import Library from './Library'; // Importation du Library pour obtenir les données statistiques
 import '../styles/App.css'; // Assurez-vous que le CSS pour Home est dans ce fichier
 import { useNavigate } from 'react-router-dom';
 
@@ -12,23 +11,30 @@ const Home = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    // Fonction pour récupérer les données de la bibliothèque pour les statistiques
-    const fetchFormStats = async () => {
-      const response = await fetch('http://localhost:5000/api/forms');
-      const data = await response.json();
+    // Fonction pour récupérer les données statistiques
+    const fetchStats = async () => {
+      try {
+        const formResponse = await fetch('http://localhost:5000/api/forms');
+        const formData = await formResponse.json();
+        const fileCount = formData.forms.length;
 
-      // Exemple de statistique : nombre total de formulaires
-      const fileCount = data.forms.length;
+        const userResponse = await fetch('http://localhost:5000/api/users/count');
+        const userData = await userResponse.json();
+        const userCount = userData.count;
 
-      // Préparer les statistiques pour le graphique
-      const formattedStats = [
-        { month: 'Total', count: fileCount }
-      ];
+        // Préparer les statistiques pour le graphique
+        const formattedStats = [
+          { label: 'Total Files', fileCount: fileCount },
+          { label: 'Total Users', userCount: userCount }
+        ];
 
-      setStats(formattedStats);
+        setStats(formattedStats);
+      } catch (error) {
+        console.error('Failed to fetch statistics:', error);
+      }
     };
 
-    fetchFormStats();
+    fetchStats();
   }, []);
 
   const handleFileClick = (fileName) => {
