@@ -196,6 +196,18 @@ const FormOuvertureCompte = () => {
               Activités réellement exercées
               <input type="text" name="activitesReellementExercees" onChange={handleChange} required />
             </label>
+
+
+            
+            <h4 style={{ textAlign: 'center' }}>Fournisseur des transformateurs électriques</h4>
+            <label>
+              aaaaaa
+              <input type="text" name="activitesPrevues" onChange={handleChange} required />
+            </label>
+
+          
+
+
             <button type="submit">Submit</button>
           </div>
         )}
