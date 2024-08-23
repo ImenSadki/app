@@ -45,6 +45,16 @@ app.get('/api/forms/:userId', async (req, res) => {
   res.json({ forms });
 });
 
+// Route pour récupérer le nombre total d'utilisateurs
+app.get('/api/users/count', async (req, res) => {
+  try {
+    const userCount = await User.countDocuments();
+    res.json({ count: userCount });
+  } catch (error) {
+    res.status(500).json({ error: 'Unable to fetch user count' });
+  }
+});
+
 app.listen(5000, () => {
   console.log('Server is running on port 5000');
 });
