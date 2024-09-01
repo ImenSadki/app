@@ -19,12 +19,12 @@ const FormOuvertureCompte = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const response = await fetch('http://localhost:5000/api/submit-form', { // Update URL to match the backend route
+    const response = await fetch('http://localhost:5000/api/submit-form',
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
       },
-      body: JSON.stringify({ fileName, formData, userId }), // Send fileName along with formData and userId
+      body: JSON.stringify({ fileName, formData, userId }), 
     });
     const data = await response.json();
     if (data.success) {
