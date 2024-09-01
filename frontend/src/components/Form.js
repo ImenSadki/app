@@ -37,14 +37,73 @@ const Form = ({ fileName }) => {
     return requiredFields[currentSection].every((field) => formData[field]);
   };
 
+  const generateXML = () => {
+    return `
+<AccountOpening>
+    <ClientID>${userId || ''}</ClientID>
+    <CompanyName>${formData.raisonSociale || ''}</CompanyName>
+    <Acronym>${formData.formeJuridique || ''}</Acronym>
+    <CountryHeadquarters></CountryHeadquarters>
+    <HeadquartersCity></HeadquartersCity>
+    <RecordType></RecordType>
+    <POBox></POBox>
+    <LegalForm>${formData.formeJuridique || ''}</LegalForm>
+    <CreationDate></CreationDate>
+    <Nationality>${formData.nationalite || ''}</Nationality>
+    <RegistrationNumber>${formData.numeroRCCM || ''}</RegistrationNumber>
+    <NifCode>${formData.codeNIF || ''}</NifCode>
+    <Address>${formData.adresse || ''}</Address>
+    <Phone>${formData.telephone || ''}</Phone>
+    <Email>${formData.email || ''}</Email>
+    <Sector>${formData.secteurActivite || ''}</Sector>
+    <Capital></Capital>
+    <Revenue></Revenue>
+    <Employees></Employees>
+    <Name>${formData.nomPrenom || ''}</Name>
+    <Type></Type>
+    <Nationality>${formData.nationaliteAdmin || ''}</Nationality>
+    <NIF>${formData.codeNIF || ''}</NIF>
+    <Address>${formData.adresse || ''}</Address>
+    <Phone>${formData.telephone || ''}</Phone>
+    <Email>${formData.email || ''}</Email>
+    <Capital></Capital>
+    <Name>${formData.nomPrenom || ''}</Name>
+    <DateOfBirth>${formData.dateNaissance || ''}</DateOfBirth>
+    <PlaceOfBirth>${formData.lieuNaissance || ''}</PlaceOfBirth>
+    <Nationality>${formData.nationalite || ''}</Nationality>
+    <DomicileLegal>${formData.domicileLegal || ''}</DomicileLegal>
+    <PartSocial>${formData.partSociale || ''}</PartSocial>
+    <Name>${formData.nomPrenom || ''}</Name>
+    <DateOfBirth>${formData.dateNaissanceAdmin || ''}</DateOfBirth>
+    <PlaceOfBirth>${formData.lieuNaissanceAdmin || ''}</PlaceOfBirth>
+    <Nationality>${formData.nationaliteAdmin || ''}</Nationality>
+    <DomicileLegal>${formData.domicileLegalAdmin || ''}</DomicileLegal>
+</AccountOpening>
+    `;
+  };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
+    const xmlData = generateXML();
+    const blob = new Blob([xmlData], { type: 'application/xml' });
+    const url = URL.createObjectURL(blob);
+
+    // Créer un lien pour télécharger le fichier XML
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = 'form-data.xml';
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+
+    // Optionnel : envoyer les données XML au serveur
+    /*
     const response = await fetch('http://localhost:5000/api/submit-form', {
       method: 'POST',
       headers: {
-        'Content-Type': 'application/json',
+        'Content-Type': 'application/xml',
       },
-      body: JSON.stringify({ fileName, formData, userId }),
+      body: xmlData,
     });
     const data = await response.json();
     if (data.success) {
@@ -52,6 +111,7 @@ const Form = ({ fileName }) => {
     } else {
       alert('Form submission failed');
     }
+    */
   };
 
   return (
@@ -169,54 +229,6 @@ const Form = ({ fileName }) => {
             </div>
           </div>
         )}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
         <div className="form-buttons">
           {currentSection < 3 && (

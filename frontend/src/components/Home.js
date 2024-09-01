@@ -1,17 +1,17 @@
 import React, { useState, useEffect } from 'react';
 import { RiLogoutCircleRLine } from "react-icons/ri";
 import Sidebar from './Sidebar';
-import Dashboard from './Dashboard'; // Importation du Dashboard
-import '../styles/App.css'; // Assurez-vous que le CSS pour Home est dans ce fichier
+import Dashboard from './Dashboard'; 
+import '../styles/App.css'; 
 import { useNavigate } from 'react-router-dom';
 
 const Home = () => {
   const [selectedFile, setSelectedFile] = useState(null);
-  const [stats, setStats] = useState([]); // État pour les statistiques
+  const [stats, setStats] = useState([]); 
   const navigate = useNavigate();
 
   useEffect(() => {
-    // Fonction pour récupérer les données statistiques
+
     const fetchStats = async () => {
       try {
         const formResponse = await fetch('http://localhost:5000/api/forms');
@@ -22,7 +22,6 @@ const Home = () => {
         const userData = await userResponse.json();
         const userCount = userData.count;
 
-        // Préparer les statistiques pour le graphique
         const formattedStats = [
           { label: 'Total Files', fileCount: fileCount },
           { label: 'Total Users', userCount: userCount }
@@ -46,7 +45,7 @@ const Home = () => {
   };
 
   const handleLogoutClick = () => {
-    // Remettre l'état d'authentification à false
+   
     localStorage.removeItem('isAuthenticated');
     navigate('/login');
   };
@@ -55,13 +54,15 @@ const Home = () => {
     <div className="home-container">
       <div className="header">
         <div className="header-content">
-          <button onClick={handleLogoutClick} className="logout-button">Logout</button>
-          <RiLogoutCircleRLine />
+       
+          <button onClick={handleLogoutClick} className="logout-button"   >Logout       <RiLogoutCircleRLine /></button>
+          
         </div>
       </div>
       <Sidebar onFileClick={handleFileClick} onLibraryClick={handleLibraryClick} />
       <div className="main-content">
-        <div className="content-header">
+        <div className="content-header"  >
+    
           <h1 className="content-title">
             {selectedFile ? `Editing ${selectedFile}` : 'Welcome!'}
           </h1>
