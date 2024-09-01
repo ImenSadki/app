@@ -19,7 +19,11 @@ const FormOuvertureCompte = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+<<<<<<< HEAD
     const response = await fetch('http://localhost:5000/api/submit-form', { 
+=======
+    const response = await fetch('http://localhost:5000/api/submit-form',
+>>>>>>> 4163c2d3a46bf55d7ed1c0db06643f49309d75d8
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',

@@ -11,7 +11,11 @@ const Home = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
+<<<<<<< HEAD
 
+=======
+   
+>>>>>>> 4163c2d3a46bf55d7ed1c0db06643f49309d75d8
     const fetchStats = async () => {
       try {
         const formResponse = await fetch('http://localhost:5000/api/forms');
@@ -45,7 +49,11 @@ const Home = () => {
   };
 
   const handleLogoutClick = () => {
+<<<<<<< HEAD
    
+=======
+
+>>>>>>> 4163c2d3a46bf55d7ed1c0db06643f49309d75d8
     localStorage.removeItem('isAuthenticated');
     navigate('/login');
   };

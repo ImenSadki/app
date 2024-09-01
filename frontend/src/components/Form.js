@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 
 const Form = ({ fileName }) => {
   const [formData, setFormData] = useState({});
-  const [currentSection, setCurrentSection] = useState(1); // État pour suivre la section actuelle
+  const [currentSection, setCurrentSection] = useState(1); 
   const userId = localStorage.getItem('userId');
 
   const handleChange = (e) => {
@@ -21,7 +21,7 @@ const Form = ({ fileName }) => {
   };
 
   const isCurrentSectionComplete = () => {
-    // Liste des champs requis pour chaque section
+    
     const requiredFields = {
       1: [
         'raisonSociale', 'formeJuridique', 'numeroRCCM', 'codeNIF', 'adresse', 'telephone', 'email', 'secteurActivite',

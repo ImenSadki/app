@@ -1,13 +1,13 @@
 import React from 'react';
 import { Line, Bar } from 'react-chartjs-2';
 import { Chart as ChartJS, CategoryScale, LinearScale, PointElement, LineElement, BarElement, Title, Tooltip, Legend } from 'chart.js';
-import '../styles/App.css'; // Assurez-vous que le CSS pour Dashboard est dans ce fichier
+import '../styles/App.css'; 
 
-// Enregistrez les composants nécessaires de Chart.js
+
 ChartJS.register(CategoryScale, LinearScale, PointElement, LineElement, BarElement, Title, Tooltip, Legend);
 
 const Dashboard = ({ selectedFile, stats }) => {
-  // Préparer les données pour le graphique en courbe des fichiers
+
   const fileData = {
     labels: stats.map(stat => stat.label), // Modifiez ceci selon vos données
     datasets: [
@@ -21,7 +21,7 @@ const Dashboard = ({ selectedFile, stats }) => {
     ]
   };
 
-  // Préparer les données pour le graphique en barres des utilisateurs
+
   const userData = {
     labels: ['Total Users'], // Utilisez un seul label pour le total des utilisateurs
     datasets: [
@@ -35,7 +35,7 @@ const Dashboard = ({ selectedFile, stats }) => {
     ]
   };
 
-  // Options pour les graphiques
+
   const commonOptions = {
     responsive: true,
     maintainAspectRatio: false,
