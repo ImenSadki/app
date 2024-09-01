@@ -1,12 +1,12 @@
-// components/FormPage.js
+
 import React from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import Form from './Form'; 
 
 
 const FormPage = () => {
-  const { fileName } = useParams(); // Récupère le nom du fichier depuis l'URL
-  const navigate = useNavigate(); // Utilisé pour naviguer entre les routes
+  const { fileName } = useParams(); 
+  const navigate = useNavigate();
 
   const goToLibrary = () => {
     navigate('/library');
