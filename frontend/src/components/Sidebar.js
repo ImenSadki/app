@@ -12,7 +12,7 @@ const Sidebar = ({ onLibraryClick }) => {
   const handleFileClick = (fileName) => {
  
     if (fileName === 'Formulaire d’ouvarture de compte ') {
-      navigate(`/form-ouverture-compte`); // Redirige vers un formulaire spécifique pour ce fichier
+      navigate(`/form-ouverture-compte`); 
     } else {
       navigate(`/form/${fileName}`);
     }
