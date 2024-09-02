@@ -3,8 +3,7 @@ import React, { useState } from 'react';
 const FormOuvertureCompte = () => {
   const [formData, setFormData] = useState({});
   const [currentSection, setCurrentSection] = useState(1);
-  const userId = localStorage.getItem('userId');
-  const [fileName] = useState('FormOuvertureCompte'); 
+ 
 
   const handleChange = (e) => {
     setFormData({
@@ -14,64 +13,48 @@ const FormOuvertureCompte = () => {
   };
 
   const handleNext = () => {
-    setCurrentSection(currentSection + 1);
-  };
-
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-<<<<<<< HEAD
-    const response = await fetch('http://localhost:5000/api/submit-form', { 
-=======
-    const response = await fetch('http://localhost:5000/api/submit-form',
->>>>>>> 4163c2d3a46bf55d7ed1c0db06643f49309d75d8
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({ fileName, formData, userId }), 
-    });
-    const data = await response.json();
-    if (data.success) {
-      alert('Form submitted successfully!');
+    if (isCurrentSectionComplete()) {
+      setCurrentSection(currentSection + 1);
     } else {
-      alert('Form submission failed');
+      alert('Please fill in all fields before proceeding to the next section.');
     }
   };
 
-
   const isCurrentSectionComplete = () => {
-    // Liste des champs requis pour chaque section
     const requiredFields = {
-      1: [
-        ' ID du client', 'Sigle', 'Forme juridique', 'Date de création', 'Nationalité', ' Pays siège social', 'Ville siège social', 'Type d enregistrement',  ' Numéro d enregistrement'  , 'Code NIF'  , 'Adresse'  ,'Boite postale'  ,' Téléphone'  ,' E-mail' ,' Secteur d activité'  ,'Capital'  , 'Chiffre d affaire' ,'Effectif'  ,
-      ],
-      2: [
-        ' Nom et prénom(s)', 'Date de naissance', ' Lieu de naissance', 'Nationalité', 'Domicile légal', 'Part sociale éventuelle (%)',
-      ],
-      3: [
-        ' Nom et prénom(s)', 'Date de naissance', ' Lieu de naissance', 'Nationalité', ' Domicile légal',
-      ],
-      4: [
-        'Activités prévues', ' Activités réellement exercées', '  N-1' ,  '   Année N-1' , ' N-2' , ' N-3',
-      ],
-      5: [
-        ' Documents reçus', ' Provenance', 'Recommandation d’un tiers', 
-      ],
-      6: [
-        'signature', 
-      ],
+        1: [
+            'idClient', 'sigle', 'formeJuridique', 'dateCreation', 'nationalite', 'paysSiegeSocial', 'villeSiegeSocial',
+            'typeEnregistrement', 'numeroEnregistrement', 'codeNif', 'adresse', 'boitePostale', 'telephone', 'email',
+            'secteurActivite', 'capital', 'chiffreAffaire', 'effectif'
+        ],
+        2: [
+            'nomPrenoms', 'dateNaissance', 'lieuNaissance', 'nationaliteAdmin', 'domicileLegal', 'partSociale'
+        ],
+        3: [
+            'nomPrenomsDirigeants', 'dateNaissanceDirigeants', 'lieuNaissanceDirigeants', 'nationaliteDirigeants', 'domicileLegalDirigeants',
+            
+            'nomPrenomsDirigeants', 'dateNaissanceDirigeants', 'lieuNaissanceDirigeants', 'nationaliteDirigeants', 'domicileLegalDirigeants'
+        ],
+        4: [
+            'activitesPrevues', 'activitesReellementExercees', 'chiffreAffaireN1', 'anneeN1', 'chiffreAffaireN2', 'chiffreAffaireN3'
+        ],
+        5: [
+            'documentsRecus', 'provenance', 'recommandationTiers', 'nom'
+        ],
+        6: [
+            'signature'
+        ],
     };
 
-    return requiredFields[currentSection].every((field) => formData[field]);
-  };
+    const currentFields = requiredFields[currentSection] || [];
+    return currentFields.every(field => formData[field]);
+};
 
 
 
 
- const generateXML = () =>{ 
-    return `
-
-
+const generateXML = () => {
+  return `
 <AccountOpening>
     <!-- Section 1: Détails du compte -->
     <ClientID>${formData.idClient || ''}</ClientID>
@@ -94,6 +77,7 @@ const FormOuvertureCompte = () => {
     <Employees>${formData.effectif || ''}</Employees>
     
     <!-- Section 2: Administrateurs -->
+    ${currentSection === 2 ? `
     <Administrator>
         <FullName>${formData.nomPrenoms || ''}</FullName>
         <DateOfBirth>${formData.dateNaissance || ''}</DateOfBirth>
@@ -102,6 +86,7 @@ const FormOuvertureCompte = () => {
         <LegalResidence>${formData.domicileLegal || ''}</LegalResidence>
         <SocialShare>${formData.partSociale || ''}</SocialShare>
     </Administrator>
+    ` : ''}
     
     <!-- Section 3: Dirigeants -->
     <Executive>
@@ -135,14 +120,43 @@ const FormOuvertureCompte = () => {
     <BusinessIntroducer>
         <Name>${formData.nom || ''}</Name>
     </BusinessIntroducer>
+    
+    <!-- Section 6: Signature -->
+    <Signature>${formData.signature || ''}</Signature>
 </AccountOpening>
-
-    return requiredFields[currentSection].every((field) => formData[field]);
   `;
+};
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    const xmlData = generateXML();
+    const blob = new Blob([xmlData], { type: 'application/xml' });
+    const url = URL.createObjectURL(blob);
+
+    // Créer un lien pour télécharger le fichier XML
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = 'form-data.xml';
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
   };
-
-
-
 
   return (
     <div className="form-container">
@@ -152,6 +166,7 @@ const FormOuvertureCompte = () => {
         {/* Section 1: Détails du compte */}
         {currentSection === 1 && (
           <div className="form-fields">
+            <h4 style={{ textAlign: 'center' }}>IDENTIFICATION</h4>
             <label>
               ID du client
               <input type="text" name="idClient" onChange={handleChange} required />
@@ -214,28 +229,25 @@ const FormOuvertureCompte = () => {
             </label>
             <label>
               Capital
-              <input type="text" name="capital" onChange={handleChange} required />
+              <input type="number" name="capital" onChange={handleChange} required />
             </label>
             <label>
               Chiffre d'affaire
-              <input type="text" name="chiffreAffaire" onChange={handleChange} required />
+              <input type="number" name="chiffreAffaire" onChange={handleChange} required />
             </label>
             <label>
               Effectif
-              <input type="text" name="effectif" onChange={handleChange} required />
+              <input type="number" name="effectif" onChange={handleChange} required />
             </label>
-            <button type="button" onClick={handleNext}>
-              Next
-            </button>
           </div>
         )}
 
-        {/* Section 2: Administrateurs */}
+       
         {currentSection === 2 && (
           <div className="form-fields">
-            <h4 style={{ textAlign: 'center' }}>Administrateur</h4>
+            <h4 style={{ textAlign: 'center' }}> ACTIONNAIRES / ASSOCIES</h4>
             <label>
-              Nom et prénom(s)
+              Nom et prénoms
               <input type="text" name="nomPrenoms" onChange={handleChange} required />
             </label>
             <label>
@@ -255,19 +267,39 @@ const FormOuvertureCompte = () => {
               <input type="text" name="domicileLegal" onChange={handleChange} required />
             </label>
             <label>
-              Part sociale éventuelle (%)
-              <input type="number" name="partSociale" onChange={handleChange} required />
+              Part sociale
+              <input type="text" name="partSociale" onChange={handleChange} required />
             </label>
-            <button type="button" onClick={handleNext}>
-              Next
-            </button>
           </div>
         )}
 
-        {/* Section 3: Dirigeants */}
+       
         {currentSection === 3 && (
           <div className="form-fields">
-            <h4 style={{ textAlign: 'center' }}>Dirigeant</h4>
+ <h4 style={{ textAlign: 'center' }}>ADMINISTRATEURS</h4>
+
+            <label>
+              Nom et prénoms
+              <input type="text" name="nomPrenomsDirigeants" onChange={handleChange} required />
+            </label>
+            <label>
+              Date de naissance
+              <input type="date" name="dateNaissanceDirigeants" onChange={handleChange} required />
+            </label>
+            <label>
+              Lieu de naissance
+              <input type="text" name="lieuNaissanceDirigeants" onChange={handleChange} required />
+            </label>
+            <label>
+              Nationalité
+              <input type="text" name="nationaliteDirigeants" onChange={handleChange} required />
+            </label>
+            <label>
+              Domicile légal
+              <input type="text" name="domicileLegalDirigeants" onChange={handleChange} required />
+            </label>
+
+            <h4 style={{ textAlign: 'center' }}>DIRIGEANTS</h4>
             <label>
               Nom et prénom(s)
               <input type="text" name="nomPrenomsDirigeants" onChange={handleChange} required />
@@ -288,16 +320,15 @@ const FormOuvertureCompte = () => {
               Domicile légal
               <input type="text" name="domicileLegalDirigeants" onChange={handleChange} required />
             </label>
-            <button type="button" onClick={handleNext}>
-              Next
-            </button>
           </div>
         )}
 
         {/* Section 4: Origine des Capitaux Confies */}
         {currentSection === 4 && (
           <div className="form-fields">
-            <h4 style={{ textAlign: 'center' }}>Origine des capitaux confies</h4>
+             
+             <h4 style={{ textAlign: 'center' }}>ORIGINE DES CAPITAUX CONFIES</h4>
+
             <label>
               Activités prévues
               <input type="text" name="activitesPrevues" onChange={handleChange} required />
@@ -306,79 +337,57 @@ const FormOuvertureCompte = () => {
               Activités réellement exercées
               <input type="text" name="activitesReellementExercees" onChange={handleChange} required />
             </label>
-
-
-            
-            <h4 style={{ textAlign: 'center' }}>Chiffre d’affaires des trois derniers exercices</h4>
+            <h5 style={{ textAlign: 'center' }}> Chiffre d’affaires des trois derniers exercices</h5>
+           
             <label>
-            N-1
-              <input type="text" name="activitesPrevues" onChange={handleChange} required />
+              Chiffre d'affaires N-1
+              <input type="number" name="chiffreAffaireN1" onChange={handleChange} required />
             </label>
-
             <label>
-            Année N-1
-              <input type="text" name="activitesPrevues" onChange={handleChange} required />
+              Année N-1
+              <input type="number" name="anneeN1" onChange={handleChange} required />
             </label>
-
             <label>
-            N-2
-              <input type="text" name="activitesPrevues" onChange={handleChange} required />
+              Chiffre d'affaires N-2
+              <input type="number" name="chiffreAffaireN2" onChange={handleChange} required />
             </label>
-
             <label>
-            N-3
-              <input type="text" name="activitesPrevues" onChange={handleChange} required />
+              Chiffre d'affaires N-3
+              <input type="number" name="chiffreAffaireN3" onChange={handleChange} required />
             </label>
-
-            <button type="button" onClick={handleNext}>
-              Next
-            </button>
           </div>
         )}
 
-
-            {currentSection === 5 && (
+        {/* Section 5: Pièces Jointes */}
+        {currentSection === 5 && (
           <div className="form-fields">
-            <h4 style={{ textAlign: 'center' }}>PIECES JOINTES</h4>
+
+<h4 style={{ textAlign: 'center' }}> PIECES JOINTES</h4>
             <label>
             Documents reçus
-              <input type="text" name=" Documents reçus" onChange={handleChange} required />
+              <input type="text" name="documentsRecus" onChange={handleChange} required />
             </label>
-          
             <h4 style={{ textAlign: 'center' }}> ORIGINE DE L’ENTREE EN RELATION</h4>
-           
+            
             <label>
-            Provenance
-              <input type="text" name=" Provenance" onChange={handleChange} required />
+              Provenance
+              <input type="text" name="provenance" onChange={handleChange} required />
             </label>
             <label>
-            Recommandation d’un tiers
-              <input type="text" name=" Recommandation d’un tiers" onChange={handleChange} required />
+              Recommandation d'un tiers
+              <input type="text" name="recommandationTiers" onChange={handleChange} required />
             </label>
-
-            <h4 style={{ textAlign: 'center' }}> Apporteur d’affaire</h4>
-
+            <h5 style={{ textAlign: 'center' }}>  Apporteur d’affaire</h5>
             <label>
-            Nom
-              <input type="text" name=" Nom" onChange={handleChange} required />
+              Nom
+              <input type="text" name="nom" onChange={handleChange} required />
             </label>
-
-
-
-            <button type="button" onClick={handleNext}>
-              Next
-            </button>
           </div>
         )}
 
-
-
-
-
-
-{currentSection === 6 && (
+        {/* Section 6: Signature */}
+        {currentSection === 6 && (
           <div className="form-fields">
-           
             <p>         Nous demandons l’ouverture d’un compte au nom de notre société : SOGUIREFEL et nous confirmons que les 
 informations ci-dessus sont exactes.
 Toutes nos instructions seront signées par les mandataires désignés ci-haut.
@@ -405,29 +414,20 @@ bénéficiaire véritable) de tous les comptes aux quels ce formulaire fait réf
 Lieu : conakry
         </p>
             <label>
-             signature 
-              <input type="text" name="signature " onChange={handleChange} required />
+              Signature
+              <input type="text" name="signature" onChange={handleChange} required />
             </label>
-           
-            
-           
-           
           </div>
         )}
 
-
-
-
-          
-
-<div className="form-buttons">
-         
-          {currentSection === 6 && (
-            <button type="submit">Submit</button>
-          )}
+        <div className="form-navigation">
+          {currentSection > 1 && <button type="button" onClick={() => setCurrentSection(currentSection - 1)}>Previous</button>}
+          {currentSection < 6 && <button type="button" onClick={handleNext}>Next</button>}
+          {currentSection === 6 && <button type="submit">Submit</button>}
         </div>
       </form>
     </div>
   );
 };
+
 export default FormOuvertureCompte;

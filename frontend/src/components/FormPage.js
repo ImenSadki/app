@@ -6,11 +6,9 @@ import Form from './Form';
 
 const FormPage = () => {
   const { fileName } = useParams(); 
-<<<<<<< HEAD
+
   const navigate = useNavigate(); 
-=======
-  const navigate = useNavigate();
->>>>>>> 4163c2d3a46bf55d7ed1c0db06643f49309d75d8
+
 
   const goToLibrary = () => {
     navigate('/library');
