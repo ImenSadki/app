@@ -1,4 +1,6 @@
 import React, { useState } from 'react';
+import 'bootstrap/dist/css/bootstrap.min.css';
+import '../styles/App.css'; // Assurez-vous que ce fichier contient vos styles personnalisés
 
 const Form = ({ fileName }) => {
   const [formData, setFormData] = useState({});
@@ -21,7 +23,6 @@ const Form = ({ fileName }) => {
   };
 
   const isCurrentSectionComplete = () => {
-    
     const requiredFields = {
       1: [
         'raisonSociale', 'formeJuridique', 'numeroRCCM', 'codeNIF', 'adresse', 'telephone', 'email', 'secteurActivite',
@@ -42,42 +43,19 @@ const Form = ({ fileName }) => {
 <AccountOpening>
     <ClientID>${userId || ''}</ClientID>
     <CompanyName>${formData.raisonSociale || ''}</CompanyName>
-    <Acronym>${formData.formeJuridique || ''}</Acronym>
-    <CountryHeadquarters></CountryHeadquarters>
-    <HeadquartersCity></HeadquartersCity>
-    <RecordType></RecordType>
-    <POBox></POBox>
     <LegalForm>${formData.formeJuridique || ''}</LegalForm>
-    <CreationDate></CreationDate>
-    <Nationality>${formData.nationalite || ''}</Nationality>
     <RegistrationNumber>${formData.numeroRCCM || ''}</RegistrationNumber>
     <NifCode>${formData.codeNIF || ''}</NifCode>
     <Address>${formData.adresse || ''}</Address>
     <Phone>${formData.telephone || ''}</Phone>
     <Email>${formData.email || ''}</Email>
     <Sector>${formData.secteurActivite || ''}</Sector>
-    <Capital></Capital>
-    <Revenue></Revenue>
-    <Employees></Employees>
-    <Name>${formData.nomPrenom || ''}</Name>
-    <Type></Type>
-    <Nationality>${formData.nationaliteAdmin || ''}</Nationality>
-    <NIF>${formData.codeNIF || ''}</NIF>
-    <Address>${formData.adresse || ''}</Address>
-    <Phone>${formData.telephone || ''}</Phone>
-    <Email>${formData.email || ''}</Email>
-    <Capital></Capital>
     <Name>${formData.nomPrenom || ''}</Name>
     <DateOfBirth>${formData.dateNaissance || ''}</DateOfBirth>
     <PlaceOfBirth>${formData.lieuNaissance || ''}</PlaceOfBirth>
     <Nationality>${formData.nationalite || ''}</Nationality>
     <DomicileLegal>${formData.domicileLegal || ''}</DomicileLegal>
     <PartSocial>${formData.partSociale || ''}</PartSocial>
-    <Name>${formData.nomPrenom || ''}</Name>
-    <DateOfBirth>${formData.dateNaissanceAdmin || ''}</DateOfBirth>
-    <PlaceOfBirth>${formData.lieuNaissanceAdmin || ''}</PlaceOfBirth>
-    <Nationality>${formData.nationaliteAdmin || ''}</Nationality>
-    <DomicileLegal>${formData.domicileLegalAdmin || ''}</DomicileLegal>
 </AccountOpening>
     `;
   };
@@ -88,154 +66,144 @@ const Form = ({ fileName }) => {
     const blob = new Blob([xmlData], { type: 'application/xml' });
     const url = URL.createObjectURL(blob);
 
-    // Créer un lien pour télécharger le fichier XML
     const a = document.createElement('a');
     a.href = url;
     a.download = 'form-data.xml';
     document.body.appendChild(a);
     a.click();
     document.body.removeChild(a);
-
-    // Optionnel : envoyer les données XML au serveur
-    /*
-    const response = await fetch('http://localhost:5000/api/submit-form', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/xml',
-      },
-      body: xmlData,
-    });
-    const data = await response.json();
-    if (data.success) {
-      alert('Form submitted successfully!');
-    } else {
-      alert('Form submission failed');
-    }
-    */
   };
 
   return (
-    <div className="form-container">
-      <h3>Fiche de connaissance de client</h3>
-      <form onSubmit={handleSubmit}>
+    <div className="container mt-5">
+      <h3 className="text-center mb-4">Fiche de connaissance de client</h3>
+      <form onSubmit={handleSubmit} className="shadow p-4 bg-light rounded">
         {currentSection === 1 && (
-          <div className="section">
+          <div className="section mb-4">
             <h4>Identification</h4>
             <div className="form-fields">
-              <label>
-                Raison Sociale:
-                <input type="text" name="raisonSociale" onChange={handleChange} required />
-              </label>
-              <label>
-                Forme Juridique:
-                <input type="text" name="formeJuridique" onChange={handleChange} required />
-              </label>
-              <label>
-                Numéro RCCM:
-                <input type="text" name="numeroRCCM" onChange={handleChange} required />
-              </label>
-              <label>
-                Code NIF:
-                <input type="text" name="codeNIF" onChange={handleChange} required />
-              </label>
-              <label>
-                Adresse:
-                <input type="text" name="adresse" onChange={handleChange} required />
-              </label>
-              <label>
-                Téléphone:
-                <input type="text" name="telephone" onChange={handleChange} required />
-              </label>
-              <label>
-                Email:
-                <input type="email" name="email" onChange={handleChange} required />
-              </label>
-              <label>
-                Secteur d'Activité:
-                <input type="text" name="secteurActivite" onChange={handleChange} required />
-              </label>
+              <div className="mb-3">
+                <label className="form-label">Raison Sociale:</label>
+                <input type="text" name="raisonSociale" onChange={handleChange} className="form-control" required />
+              </div>
+              <div className="mb-3">
+                <label className="form-label">Forme Juridique:</label>
+                <input type="text" name="formeJuridique" onChange={handleChange} className="form-control" required />
+              </div>
+              <div className="mb-3">
+                <label className="form-label">Numéro RCCM:</label>
+                <input type="text" name="numeroRCCM" onChange={handleChange} className="form-control" required />
+              </div>
+              <div className="mb-3">
+                <label className="form-label">Code NIF:</label>
+                <input type="text" name="codeNIF" onChange={handleChange} className="form-control" required />
+              </div>
+              <div className="mb-3">
+                <label className="form-label">Adresse:</label>
+                <input type="text" name="adresse" onChange={handleChange} className="form-control" required />
+              </div>
+              <div className="mb-3">
+                <label className="form-label">Téléphone:</label>
+                <input type="text" name="telephone" onChange={handleChange} className="form-control" required />
+              </div>
+              <div className="mb-3">
+                <label className="form-label">Email:</label>
+                <input type="email" name="email" onChange={handleChange} className="form-control" required />
+              </div>
+              <div className="mb-3">
+                <label className="form-label">Secteur d'Activité:</label>
+                <input type="text" name="secteurActivite" onChange={handleChange} className="form-control" required />
+              </div>
             </div>
           </div>
         )}
 
         {currentSection === 2 && (
-          <div className="section">
+          <div className="section mb-4">
             <h4>Actionnaire / Associés</h4>
             <div className="form-fields">
-              <label>
-                Actionnaire:
-                <input type="text" name="actionnaire" onChange={handleChange} required />
-              </label>
-              <label>
-                Date de Naissance:
-                <input type="text" name="dateNaissance" onChange={handleChange} required />
-              </label>
-              <label>
-                Lieu de Naissance:
-                <input type="text" name="lieuNaissance" onChange={handleChange} required />
-              </label>
-              <label>
-                Nationalité:
-                <input type="text" name="nationalite" onChange={handleChange} required />
-              </label>
-              <label>
-                Domicile Légal:
-                <input type="text" name="domicileLegal" onChange={handleChange} required />
-              </label>
-              <label>
-                Dépendance:
-                <input type="text" name="dependance" onChange={handleChange} required />
-              </label>
-              <label>
-                Niveau:
-                <input type="text" name="niveau" onChange={handleChange} required />
-              </label>
-              <label>
-                Part Sociale %:
-                <input type="text" name="partSociale" onChange={handleChange} required />
-              </label>
+              <div className="mb-3">
+                <label className="form-label">Actionnaire:</label>
+                <input type="text" name="actionnaire" onChange={handleChange} className="form-control" required />
+              </div>
+              <div className="mb-3">
+                <label className="form-label">Date de Naissance:</label>
+                <input type="text" name="dateNaissance" onChange={handleChange} className="form-control" required />
+              </div>
+              <div className="mb-3">
+                <label className="form-label">Lieu de Naissance:</label>
+                <input type="text" name="lieuNaissance" onChange={handleChange} className="form-control" required />
+              </div>
+              <div className="mb-3">
+                <label className="form-label">Nationalité:</label>
+                <input type="text" name="nationalite" onChange={handleChange} className="form-control" required />
+              </div>
+              <div className="mb-3">
+                <label className="form-label">Domicile Légal:</label>
+                <input type="text" name="domicileLegal" onChange={handleChange} className="form-control" required />
+              </div>
+              <div className="mb-3">
+                <label className="form-label">Dépendance:</label>
+                <input type="text" name="dependance" onChange={handleChange} className="form-control" required />
+              </div>
+              <div className="mb-3">
+                <label className="form-label">Niveau:</label>
+                <input type="text" name="niveau" onChange={handleChange} className="form-control" required />
+              </div>
+              <div className="mb-3">
+                <label className="form-label">Part Sociale %:</label>
+                <input type="text" name="partSociale" onChange={handleChange} className="form-control" required />
+              </div>
             </div>
           </div>
         )}
 
         {currentSection === 3 && (
-          <div className="section">
+          <div className="section mb-4">
             <h4>Administrateurs</h4>
             <div className="form-fields">
-              <label>
-                Nom et Prénom(s):
-                <input type="text" name="nomPrenom" onChange={handleChange} required />
-              </label>
-              <label>
-                Date de Naissance:
-                <input type="text" name="dateNaissanceAdmin" onChange={handleChange} required />
-              </label>
-              <label>
-                Lieu de Naissance:
-                <input type="text" name="lieuNaissanceAdmin" onChange={handleChange} required />
-              </label>
-              <label>
-                Nationalité:
-                <input type="text" name="nationaliteAdmin" onChange={handleChange} required />
-              </label>
-              <label>
-                Domicile Légal:
-                <input type="text" name="domicileLegalAdmin" onChange={handleChange} required />
-              </label>
-              <label>
-                Part Sociale éventuelle (%):
-                <input type="text" name="partSocialeAdmin" onChange={handleChange} required />
-              </label>
+              <div className="mb-3">
+                <label className="form-label">Nom et Prénom(s):</label>
+                <input type="text" name="nomPrenom" onChange={handleChange} className="form-control" required />
+              </div>
+              <div className="mb-3">
+                <label className="form-label">Date de Naissance:</label>
+                <input type="text" name="dateNaissanceAdmin" onChange={handleChange} className="form-control" required />
+              </div>
+              <div className="mb-3">
+                <label className="form-label">Lieu de Naissance:</label>
+                <input type="text" name="lieuNaissanceAdmin" onChange={handleChange} className="form-control" required />
+              </div>
+              <div className="mb-3">
+                <label className="form-label">Nationalité:</label>
+                <input type="text" name="nationaliteAdmin" onChange={handleChange} className="form-control" required />
+              </div>
+              <div className="mb-3">
+                <label className="form-label">Domicile Légal:</label>
+                <input type="text" name="domicileLegalAdmin" onChange={handleChange} className="form-control" required />
+              </div>
+              <div className="mb-3">
+                <label className="form-label">Part Sociale %:</label>
+                <input type="text" name="partSocialeAdmin" onChange={handleChange} className="form-control" required />
+              </div>
             </div>
           </div>
         )}
 
-        <div className="form-buttons">
-          {currentSection < 3 && (
-            <button type="button" onClick={handleNext}>Next</button>
+        <div className="d-flex justify-content-between">
+          {currentSection > 1 && (
+            <button type="button" className="btn btn-secondary" onClick={() => setCurrentSection(currentSection - 1)}>
+              Précédent
+            </button>
           )}
-          {currentSection === 3 && (
-            <button type="submit">Submit</button>
+          {currentSection < 3 ? (
+            <button type="button" className="btn btn-primary" onClick={handleNext}>
+              Suivant
+            </button>
+          ) : (
+            <button type="submit" className="btn btn-success">
+              Soumettre
+            </button>
           )}
         </div>
       </form>

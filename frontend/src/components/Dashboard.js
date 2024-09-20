@@ -3,17 +3,16 @@ import { Line, Bar } from 'react-chartjs-2';
 import { Chart as ChartJS, CategoryScale, LinearScale, PointElement, LineElement, BarElement, Title, Tooltip, Legend } from 'chart.js';
 import '../styles/App.css'; 
 
-
 ChartJS.register(CategoryScale, LinearScale, PointElement, LineElement, BarElement, Title, Tooltip, Legend);
 
 const Dashboard = ({ selectedFile, stats }) => {
 
   const fileData = {
-    labels: stats.map(stat => stat.label), // Modifiez ceci selon vos données
+    labels: stats.map(stat => stat.label), 
     datasets: [
       {
         label: 'Number of Files',
-        data: stats.map(stat => stat.fileCount), // Modifiez ceci selon vos données
+        data: stats.map(stat => stat.fileCount), 
         fill: false,
         borderColor: '#4caf50',
         tension: 0.1
@@ -21,20 +20,18 @@ const Dashboard = ({ selectedFile, stats }) => {
     ]
   };
 
-
   const userData = {
-    labels: ['Total Users'], // Utilisez un seul label pour le total des utilisateurs
+    labels: ['Total Users'], 
     datasets: [
       {
         label: 'Number of Users',
-        data: [stats.reduce((total, stat) => total + stat.userCount, 0)], // Calculez le total des utilisateurs
+        data: [stats.reduce((total, stat) => total + stat.userCount, 0)], 
         backgroundColor: '#2196f3',
         borderColor: '#2196f3',
         borderWidth: 1
       }
     ]
   };
-
 
   const commonOptions = {
     responsive: true,
@@ -68,18 +65,32 @@ const Dashboard = ({ selectedFile, stats }) => {
   };
 
   return (
-    <div className="dashboard">
-      <div className="dashboard-section">
-        <h2 className="dashboard-title">Dashboard</h2>
-        <div className="dashboard-stat">Selected File: {selectedFile || 'None'}</div>
-        <div className="dashboard-charts-container">
-          <div className="dashboard-chart">
-            <h3>Files Statistics</h3>
-            <Line data={fileData} options={commonOptions} />
+    <div className="dashboard container mt-4">
+      <h2 className="text-center mb-4">Dashboard</h2>
+      <div className="alert alert-info text-center">
+        Selected File: {selectedFile || 'None'}
+      </div>
+      
+      <div className="row">
+        <div className="col-lg-6 col-md-12 mb-4">
+          <div className="card">
+            <div className="card-body">
+              <h3 className="card-title text-center">Files Statistics</h3>
+              <div style={{ height: '300px' }}>
+                <Line data={fileData} options={commonOptions} />
+              </div>
+            </div>
           </div>
-          <div className="dashboard-chart">
-            <h3>Users Statistics</h3>
-            <Bar data={userData} options={commonOptions} />
+        </div>
+        
+        <div className="col-lg-6 col-md-12 mb-4">
+          <div className="card">
+            <div className="card-body">
+              <h3 className="card-title text-center">Users Statistics</h3>
+              <div style={{ height: '300px' }}>
+                <Bar data={userData} options={commonOptions} />
+              </div>
+            </div>
           </div>
         </div>
       </div>

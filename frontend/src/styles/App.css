@@ -1,668 +1,138 @@
-/* Variables pour les couleurs et les styles */
-:root {
-  --primary-color: #4c70af; /* Bleu professionnel */
-  --primary-light-color: #7c9dce; /* Bleu clair */
-  --primary-dark-color: #003a6c; /* Bleu foncé */
-  --card-background-color: #ffffff; /* Fond des cartes blanc */
-  --border-color: #264c5f; /* Gris clair pour les bordures */
-  --text-color: #263238; /* Gris foncé pour le texte */
-  --text-muted-color: #607d8b; /* Gris moyen pour le texte */
-  --shadow-color: rgba(0, 0, 0, 0.1); /* Ombre légère */
-  --header-background-color: #003a6c; /* Bleu foncé pour l'en-tête */
-  --sidebar-background-color: #003a6c; /* Bleu foncé pour la sidebar */
-  background-repeat: no-repeat;
-  background-size: cover;
-  background-image: url("../../images-bg/e62f74d9726d0b0e9870a38749181d93.gif");
-  background-repeat: no-repeat;
-  background-size: cover;
+/*login*/
+
+.card {
+  border: none;
+  
 }
 
-/* Style global */
-body {
-  font-family: 'Arial', sans-serif;
-  margin: 0;
-  padding: 0;
-  display: flex;
-  flex-direction: column;
+.input-group-text {
+  background-color: #007bff;
+  color: white;
+}
+
+.btn-primary {
+  background-color: #007bff;
+  border-color: #007bff;
+}
+
+.btn-primary:hover {
+  background-color: #0056b3;
+}
+
+
+
+
+/*register*/
+
+
+.card {
+  border: none;
+}
+
+.input-group-text {
+  background-color: #007bff;
+  color: white;
+}
+
+.btn-primary {
+  background-color: #007bff;
+  border-color: #007bff;
+}
+
+.btn-primary:hover {
+  background-color: #0056b3;
+}
+
+
+
+
+
+
+
+
+
+/*pour home*/
+
+.home-container {
+  height: 100vh;
+}
+
+.bg-dark {
+  background-color: #343a40 !important;
+}
+
+.main-content {
+  background-color: #f8f9fa;
   min-height: 100vh;
 }
 
-/* Styles pour l'en-tête */
-.header {
-  width: 100%;
-  position: fixed;
-  top: 0;
-  left: 0;
-  background-color: var(--header-background-color); /* Bleu foncé */
-  padding: 10px;
-  box-shadow: 0 2px 4px var(--shadow-color);
-  z-index: 1000; /* Assure que l'en-tête est au-dessus des autres éléments */
+
+
+/*dashbord*/
+.dashboard .card {
+  border-radius: 10px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
 }
 
-.header-content {
-  max-width: 1200px; /* Limite la largeur maximale de l'en-tête */
-  margin: 0 auto; /* Centre le contenu horizontalement */
-  display: flex;
-  justify-content: flex-end; /* Aligne les éléments à droite */
-  align-items: center; /* Aligne les éléments verticalement */
-}
-
-/* Styles pour les boutons dans l'en-tête */
-.logout-button {
-  padding: 12px 24px;
-  background-color: var(--primary-color);
-  color: white;
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
-  transition: background-color 0.3s ease, transform 0.3s ease;
-  font-size: 16px;
-  margin-left: 10px; /* Espace entre les boutons */
-}
-
-.logout-button:hover {
-  background-color: var(--primary-dark-color);
-  transform: scale(1.05);
-}
-
-/* Container principal pour les pages */
-.container {
-  max-width: 1200px;
-  width: 40%;
-  margin: 50px auto;
-  padding: 20px;
-  background-color: var(--card-background-color);
-  box-shadow: 0 4px 10px var(--shadow-color);
-  border-radius: 8px;
-  display: flex;
-  flex-direction: column;
-}
-
-/* Styles pour les titres */
-h2 {
-  margin-bottom: 20px;
-  font-size: 28px;
-  color: var(--text-color);
-  text-align: center;
-}
-
-/* Styles pour les boutons */
-button {
-  padding: 12px 24px;
-  background-color: var(--primary-color);
-  color: white;
-  border: none;
-  border-radius: 4px;
-  cursor: pointer;
-  transition: background-color 0.3s ease, transform 0.3s ease;
-  font-size: 16px;
-}
-
-button:hover {
-  background-color: var(--primary-dark-color);
-  transform: scale(1.05);
-}
-
-/* Styles pour les champs de formulaire avec icônes */
-.input-group {
-  position: relative;
+.dashboard .card-title {
+  font-size: 1.5rem;
   margin-bottom: 20px;
 }
 
-.input-wrapper {
-  position: relative;
+.dashboard .alert {
+  font-size: 1.2rem;
 }
 
-.input-wrapper input {
-  width: 100%;
-  padding: 12px;
-  padding-right: 2.5rem; /* Ajoutez suffisamment d'espace pour l'icône */
-  border-radius: 4px;
-  border: 1px solid var(--border-color);
-  font-size: 16px;
-  box-sizing: border-box;
-}
 
-.input-wrapper .icon {
-  position: absolute;
-  right: 0.5rem; /* Ajustez la position de l'icône */
-  top: 50%;
-  transform: translateY(-50%);
-  color: var(--text-muted-color); /* Ajustez la couleur de l'icône si nécessaire */
-  font-size: 1.2rem; /* Taille de l'icône */
-  pointer-events: none; /* Permet d'éviter les interactions de la souris avec l'icône */
-}
 
-/* Styles pour les champs de formulaire */
-form {
-  display: flex;
-  flex-direction: column;
-  width: 100%;
-  max-width: 70%; /* Largeur maximale pour les formulaires */
-  margin: 0 auto; /* Centre le formulaire horizontalement */
-}
 
-form div {
-  margin-bottom: 20px;
-}
 
-/* Styles pour les labels */
-form label {
-  display: block;
-  font-size: 16px;
-  margin-bottom: 5px;
-  color: var(--text-color);
-}
+/*sidebare*/
 
-/* Styles pour les champs de texte */
-form input {
-  width: 100%;
-  padding: 10px;
-  border-radius: 4px;
-  border: 1px solid var(--border-color);
-  font-size: 16px;
-  box-sizing: border-box;
-}
 
-/* Styles pour le bouton de soumission */
-form button[type="submit"] {
-  background-color: var(--primary-color);
-  color: white;
-  border: none;
-  border-radius: 4px;
-  cursor: pointer;
-  padding: 12px;
-  font-size: 16px;
-  transition: background-color 0.3s ease, transform 0.3s ease;
-}
-
-form button[type="submit"]:hover {
-  background-color: var(--primary-dark-color);
-  transform: scale(1.05);
-}
-
-/* Styles pour le conteneur principal de la page d'accueil */
-.home-container {
-  display: flex;
-  flex-direction: row;
-  height: calc(100vh - 60px); /* Ajuste la hauteur pour éviter le chevauchement avec l'en-tête */
-  margin-top: 60px; /* Pour compenser l'en-tête fixe */
-  background-color: #ffffff;
-}
-
-/* Styles pour la sidebar */
 .sidebar {
-  width: 250px;
-  background-color: var(--sidebar-background-color);
-  padding: 20px;
-  box-shadow: 2px 0 4px var(--shadow-color);
-  display: flex;
-  flex-direction: column;
-}
-
-.sidebar-title {
-  font-size: 24px;
-  color: white;
-  margin-bottom: 20px;
-}
-
-.sidebar-list {
-  list-style-type: none;
-  padding: 0;
-}
-
-.sidebar-item {
-  margin-bottom: 10px;
+  min-width: 250px;
+  height: 100vh;
+ 
 }
 
 .sidebar-button {
-  background: none;
-  border: none;
-  color: white;
-  font-size: 18px;
-  cursor: pointer;
-  padding: 10px;
   text-align: left;
-  width: 100%;
-  transition: background-color 0.3s ease, color 0.3s ease;
+  padding: 10px;
+  transition: background-color 0.3s ease;
 }
 
 .sidebar-button:hover {
-  background-color: var(--primary-light-color);
-  color: var(--primary-dark-color);
+  background-color: rgba(255, 255, 255, 0.1);
 }
 
-/* Styles pour le bouton de la bibliothèque */
 .sidebar-library-button {
-  background-color: var(--primary-color);
-  color: white;
-  border: none;
+  font-size: 1.1rem;
   padding: 12px;
-  border-radius: 4px;
-  cursor: pointer;
-  font-size: 16px;
-  transition: background-color 0.3s ease, transform 0.3s ease;
 }
 
-.sidebar-library-button:hover {
-  background-color: var(--primary-dark-color);
-  transform: scale(1.05);
-}
-
-/* Styles pour le contenu principal */
-.main-content {
-  flex-grow: 1;
-  padding: 20px;
-  overflow-y: auto;
-}
-
-.content-header {
-  margin-bottom: 20px;
-}
-
-.content-title {
-  font-size: 24px;
-  color: var(--text-color);
-}
-
-.content-body {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: calc(100vh - 60px); /* Ajuste la hauteur pour éviter le chevauchement avec l'en-tête */
-}
-
-.content-message {
-  font-size: 18px;
-  color: var(--text-muted-color);
-}
-
-.dashboard {
-  padding: 20px;
-  background-color: #f9f9f9;
-  border-radius: 8px;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-}
-
-.dashboard-title {
-  font-size: 24px;
-  margin-bottom: 20px;
-}
-
-.dashboard-stat {
-  font-size: 18px;
-  margin-bottom: 10px;
-}
-
-.dashboard-chart {
-  margin-top: 20px;
-  height: 400px; /* Ajustez la hauteur selon vos besoins */
-}
-
-.form-container {
-  background-color: white; /* Fond blanc */
-  border: 1px solid #ccc; /* Bordure grise légère */
-  padding: 20px; /* Espace intérieur */
-  border-radius: 8px; /* Coins arrondis */
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Ombre légère pour un effet de profondeur */
-  max-width: 80%; /* Largeur maximale pour le bloc */
-  margin: 20px auto; /* Centre le bloc horizontalement */
-}
-
-form {
-  display: flex;
-  flex-direction: column; /* Aligne les éléments du formulaire verticalement */
-}
-
-label {
-  margin-bottom: 8px; /* Espacement entre le label et le champ */
-}
-
-input {
-  margin-bottom: 16px; /* Espacement entre les champs */
-  padding: 8px; /* Espace intérieur pour les champs */
-  border: 1px solid #ddd; /* Bordure légère */
-  border-radius: 4px; /* Coins arrondis pour les champs */
-}
-
-button {
-  padding: 10px 20px; /* Espacement intérieur pour le bouton */
-  border: none; /* Supprime la bordure par défaut */
-  border-radius: 4px; /* Coins arrondis pour le bouton */
-  background-color: #007bff; /* Couleur de fond du bouton */
-  color: white; /* Couleur du texte du bouton */
-  cursor: pointer; /* Curseur pointeur pour le bouton */
-  font-size: 16px; /* Taille de la police du bouton */
-}
-
-button:hover {
-  background-color: #0056b3; /* Couleur de fond du bouton au survol */
+.sidebar-title {
+  font-size: 1.5rem;
+  font-weight: bold;
 }
 
 
 
-
+/*library*/
 
 
 .library-container {
   padding: 20px;
-  margin-top: 5%;
-  background-color: #f8f9fa; /* Couleur de fond légère pour la page */
 }
 
 table {
   width: 100%;
-  border-collapse: collapse;
-  background-color: #ffffff; /* Couleur de fond blanche pour le tableau */
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Ombre pour le tableau */
-}
-
-th, td {
-  padding: 12px;
-  text-align: left;
-  border-bottom: 1px solid #ddd; /* Bordure inférieure pour les cellules */
-}
-
-th {
-  background-color: #f0f0f0; /* Couleur de fond légèrement différente pour les en-têtes */
-}
-
-tr:hover {
-  background-color: #f1f1f1; /* Couleur de survol pour les lignes */
 }
 
 pre {
-  margin: 0; /* Réduit la marge autour du texte JSON */
-  white-space: pre-wrap; /* Permet au texte de se plier */
-  font-family: Arial, sans-serif; /* Utilise une police différente pour le texte JSON */
-  font-size: 14px; /* Ajuste la taille de la police pour le texte JSON */
+  white-space: pre-wrap;
+  word-wrap: break-word;
 }
 
 
 
-
-
-
-
-
-
-
-
-.form-container {
-  max-width: 1200px;
-  margin: auto;
-  padding: 20px;
-  border-radius: 8px;
-  background-color: #f9f9f9;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-
-}
-
-h3 {
-  text-align: center;
-  color: #333;
-}
-
-.section {
-  margin-bottom: 20px;
-}
-
-h4 {
-  color: #000000;
-  margin-bottom: 10px;
-  text-align: center;
-}
-
-.form-fields {
-  display: grid;
-  grid-template-columns: repeat(4, 1fr); /* 4 colonnes de largeur égale */
-  gap: 20px; /* Espacement entre les champs */
-}
-
-.form-fields label {
-  display: flex;
-  flex-direction: column;
-  margin-bottom: 10px; /* Espace sous chaque label */
-}
-
-.form-fields input {
-  padding: 8px;
-  border: 1px solid #ccc;
-  border-radius: 4px;
-}
-
-.form-buttons {
-  text-align: center;
-  margin-top: 20px;
-}
-
-button {
-  background-color: #007bff;
-  color: white;
-  padding: 10px 20px;
-  border: none;
-  border-radius: 4px;
-  cursor: pointer;
-}
-
-button:hover {
-  background-color: #0056b3;
-}
-
-
-.form-buttons {
-  text-align: center;
-  margin-top: 20px;
-}
-
-button {
-  background-color: #007bff;
-  color: white;
-  padding: 10px 20px;
-  border: none;
-  border-radius: 4px;
-  cursor: pointer;
-}
-
-button:hover {
-  background-color: #0056b3;
-}
-
-
-.form-buttons {
-  text-align: center;
-  margin-top: 20px;
-}
-
-button {
-  background-color: #007bff;
-  color: white;
-  padding: 10px 20px;
-  border: none;
-  border-radius: 4px;
-  cursor: pointer;
-}
-
-button:hover {
-  background-color: #0056b3;
-}
-
-
-button[type="submit"] {
-  display: block;
-  width: 80%; /* Largeur du bouton de soumission ajustée pour correspondre au tableau */
-  max-width: 400px; /* Largeur maximale du bouton pour éviter qu'il ne devienne trop large */
-  padding: 12px;
-  background-color: #4CAF50;
-  color: white;
-  font-size: 18px;
-  font-weight: bold;
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
-  margin-top: 20px;
-}
-
-button[type="submit"]:hover {
-  background-color: #45a049;
-}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-.dashboard {
-  padding: 20px;
-  
-}
-
-.dashboard-section {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-
-}
-
-.dashboard-title {
-  font-size: 24px;
-  margin-bottom: 20px;
-}
-
-.dashboard-stat {
-  margin-bottom: 20px;
-}
-
-.dashboard-charts-container {
-  display: flex;
-  justify-content: space-between;
-  width: 100%;
-}
-
-.dashboard-chart {
-  flex: 1;
-  margin: 0 20px;
-  max-width: 45%;
-  height: 400px; /* Assurez-vous que les graphiques ont une hauteur définie */
-}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-/* App.css */
-
-/* Style général pour le conteneur du formulaire */
-.form-container {
-  max-width: 800px;
-  margin: 0 auto;
-  padding: 20px;
-  border: 1px solid #ddd;
-  border-radius: 8px;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-  background-color: #fff;
-}
-
-/* Style pour les titres du formulaire */
-h3 {
-  margin-bottom: 20px;
-  font-size: 1.5em;
-  color: #cf1515;
-  text-align: center;
-}
-
-/* Style pour les champs du formulaire */
-.form-fields {
-  display: flex;
-  flex-direction: column;
-}
-
-/* Style pour chaque label */
-.form-fields label {
-  margin-bottom: 15px;
-  font-weight: bold;
-  color: #555;
-}
-
-/* Style pour les champs de saisie */
-.form-fields input[type="text"],
-.form-fields input[type="date"],
-.form-fields input[type="email"],
-.form-fields input[type="number"] {
-  width: 100%;
-  padding: 10px;
-  margin-top: 5px;
-  border: 1px solid #ccc;
-  border-radius: 4px;
-  font-size: 1em;
-}
-
-/* Style pour les boutons */
-.form-fields button {
-  background-color: #007bff;
-  color: #fff;
-  border: none;
-  padding: 10px 20px;
-  border-radius: 4px;
-  font-size: 1em;
-  cursor: pointer;
-  margin-top: 10px;
-}
-
-.form-fields button[type="submit"] {
-  background-color: #28a745;
-}
-
-.form-fields button:hover {
-  opacity: 0.9;
-}
-
-/* Style pour le bouton "Next" */
-.form-fields button[type="button"] {
-  background-color: #17a2b8;
-}
-
-.form-fields button[type="button"]:hover {
-  opacity: 0.9;
-}

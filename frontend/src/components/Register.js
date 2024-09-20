@@ -3,7 +3,8 @@ import { Link, useNavigate } from 'react-router-dom';
 import { MdOutlineEmail } from "react-icons/md";
 import { FaRegUser } from "react-icons/fa";
 import { RiLockPasswordLine } from "react-icons/ri";
-import '../styles/App.css';
+import 'bootstrap/dist/css/bootstrap.min.css';
+import '../styles/App.css'; 
 
 const Register = () => {
   const [email, setEmail] = useState('');
@@ -30,54 +31,61 @@ const Register = () => {
   };
 
   return (
-    <div className="container register-container">
-      <h2>Register</h2>
-      <form onSubmit={handleRegister}>
-        <div className="input-group">
-          <label>Email</label>
-          <div className="input-wrapper">
-            <input
-              type="email"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-              placeholder='write your email'
-              required
-            />
-            <MdOutlineEmail className="icon" />
-          </div>
+    <div className="container register-container mt-5">
+      <div className="card shadow">
+        <div className="card-body">
+          <h2 className="text-center mb-4">Create Account</h2>
+          <form onSubmit={handleRegister}>
+            <div className="mb-3">
+              <label className="form-label">Email</label>
+              <div className="input-group">
+                <input
+                  type="email"
+                  className="form-control"
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
+                  placeholder='Enter your email'
+                  required
+                />
+                <span className="input-group-text"><MdOutlineEmail /></span>
+              </div>
+            </div>
+            <div className="mb-3">
+              <label className="form-label">Username</label>
+              <div className="input-group">
+                <input
+                  type="text"
+                  className="form-control"
+                  value={username}
+                  onChange={(e) => setUsername(e.target.value)}
+                  placeholder='Enter your username'
+                  required
+                />
+                <span className="input-group-text"><FaRegUser /></span>
+              </div>
+            </div>
+            <div className="mb-3">
+              <label className="form-label">Password</label>
+              <div className="input-group">
+                <input
+                  type="password"
+                  className="form-control"
+                  value={password}
+                  onChange={(e) => setPassword(e.target.value)}
+                  placeholder='Enter your password'
+                  required
+                />
+                <span className="input-group-text"><RiLockPasswordLine /></span>
+              </div>
+            </div>
+            <button type="submit" className="btn btn-primary w-100">Register</button>
+            {error && <p className="alert alert-danger mt-3">{error}</p>}
+          </form>
+          <p className="text-center mt-3">
+            Already have an account? <Link to="/login">Login</Link>
+          </p>
         </div>
-        <div className="input-group">
-          <label>Username</label>
-          <div className="input-wrapper">
-            <input
-              type="text"
-              value={username}
-              onChange={(e) => setUsername(e.target.value)}
-              placeholder='write your username'
-              required
-            />
-            <FaRegUser className="icon" />
-          </div>
-        </div>
-        <div className="input-group">
-          <label>Password</label>
-          <div className="input-wrapper">
-            <input
-              type="password"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-              placeholder='write your password'
-              required
-            />
-            <RiLockPasswordLine className="icon" />
-          </div>
-        </div>
-        <button type="submit">Register</button>
-        {error && <p className="alert">{error}</p>}
-      </form>
-      <p>
-        Already have an account? <Link to="/login">Login</Link>
-      </p>
+      </div>
     </div>
   );
 };

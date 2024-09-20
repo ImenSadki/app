@@ -11,7 +11,6 @@ const Home = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
-
     const fetchStats = async () => {
       try {
         const formResponse = await fetch('http://localhost:5000/api/forms');
@@ -45,30 +44,34 @@ const Home = () => {
   };
 
   const handleLogoutClick = () => {
-
     localStorage.removeItem('isAuthenticated');
     navigate('/login');
   };
 
   return (
-    <div className="home-container">
-      <div className="header">
-        <div className="header-content">
-       
-          <button onClick={handleLogoutClick} className="logout-button"   >Logout       <RiLogoutCircleRLine /></button>
+    <div className="container-fluid">
+      <div className="row">
+        
+        {/* Sidebar */}
+        <div className="col-md-3 p-0 bg-dark">
+          <Sidebar onFileClick={handleFileClick} onLibraryClick={handleLibraryClick} />
+        </div>
+        
+        {/* Main Content */}
+        <div className="col-md-9">
+          <div className="d-flex justify-content-between align-items-center p-3 bg-light border-bottom">
+            <h1 className="h3">
+              {selectedFile ? `Editing ${selectedFile}` : 'Welcome!'}
+            </h1>
+            <button onClick={handleLogoutClick} className="btn btn-danger">
+              Logout <RiLogoutCircleRLine />
+            </button>
+          </div>
           
-        </div>
-      </div>
-      <Sidebar onFileClick={handleFileClick} onLibraryClick={handleLibraryClick} />
-      <div className="main-content">
-        <div className="content-header"  >
-    
-          <h1 className="content-title">
-            {selectedFile ? `Editing ${selectedFile}` : 'Welcome!'}
-          </h1>
-        </div>
-        <div className="content-body">
-          <Dashboard selectedFile={selectedFile} stats={stats} />
+          {/* Dashboard */}
+          <div className="p-4">
+            <Dashboard selectedFile={selectedFile} stats={stats} />
+          </div>
         </div>
       </div>
     </div>
